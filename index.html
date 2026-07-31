@@ -6,46 +6,88 @@
 
 <style>
 body{
-    font-family:Arial;
+    font-family:Segoe UI,Arial,sans-serif;
+    background:#f4f6f9;
     margin:30px;
-    background:#f5f5f5;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+    background:#fff;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,.15);
+}
+
+h2{
+    text-align:center;
+    color:#0d6efd;
 }
 
 table{
-    border-collapse:collapse;
     width:100%;
-    background:white;
-}
-
-th,td{
-    border:1px solid #000;
-    padding:8px;
-    text-align:center;
+    border-collapse:collapse;
+    margin-top:20px;
 }
 
 th{
-    background:#2c7be5;
+    background:#0d6efd;
     color:white;
+    padding:12px;
+}
+
+td{
+    border:1px solid #ddd;
+    padding:8px;
+    text-align:center;
 }
 
 input{
     width:100%;
     border:none;
-    text-align:center;
+    text-align:right;
     font-size:15px;
+    padding:5px;
 }
 
 input:focus{
+    background:#fff8c4;
     outline:none;
-    background:#ffffcc;
 }
-</style>
 
+.total{
+    background:#fff3cd;
+    font-weight:bold;
+}
+
+button{
+    margin-top:20px;
+    padding:10px 20px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:15px;
+}
+
+.save{
+    background:#198754;
+    color:white;
+}
+
+.print{
+    background:#0d6efd;
+    color:white;
+}
+
+</style>
 </head>
 
 <body>
 
-<h2 align="center">LAPORAN PENCAIRAN</h2>
+<div class="container">
+
+<h2>LAPORAN PENCAIRAN</h2>
 
 <table>
 
@@ -60,61 +102,102 @@ input:focus{
 
 <tr>
 <td>Nilai Depo</td>
-<td><input type="number" id="d1" onkeyup="hitung()"></td>
-<td><input type="number" id="d2" onkeyup="hitung()"></td>
-<td><input type="number" id="d3" onkeyup="hitung()"></td>
-<td><input type="number" id="d4" onkeyup="hitung()"></td>
-<td id="totalDepo">0</td>
+
+<td><input class="depo" oninput="hitung()"></td>
+<td><input class="depo" oninput="hitung()"></td>
+<td><input class="depo" oninput="hitung()"></td>
+<td><input class="depo" oninput="hitung()"></td>
+
+<td class="total" id="totalDepo">0</td>
+
 </tr>
 
 <tr>
+
 <td>Total Cair</td>
-<td><input type="number" id="c1" onkeyup="hitung()"></td>
-<td><input type="number" id="c2" onkeyup="hitung()"></td>
-<td><input type="number" id="c3" onkeyup="hitung()"></td>
-<td><input type="number" id="c4" onkeyup="hitung()"></td>
-<td id="totalCair">0</td>
+
+<td><input class="cair" oninput="hitung()"></td>
+<td><input class="cair" oninput="hitung()"></td>
+<td><input class="cair" oninput="hitung()"></td>
+<td><input class="cair" oninput="hitung()"></td>
+
+<td class="total" id="totalCair">0</td>
+
 </tr>
 
 <tr>
+
 <td>Ketampung</td>
-<td><input type="number" id="k1" onkeyup="hitung()"></td>
-<td><input type="number" id="k2" onkeyup="hitung()"></td>
-<td><input type="number" id="k3" onkeyup="hitung()"></td>
-<td><input type="number" id="k4" onkeyup="hitung()"></td>
-<td id="totalKetampung">0</td>
+
+<td><input class="ket" oninput="hitung()"></td>
+<td><input class="ket" oninput="hitung()"></td>
+<td><input class="ket" oninput="hitung()"></td>
+<td><input class="ket" oninput="hitung()"></td>
+
+<td class="total" id="totalKet">0</td>
+
 </tr>
 
 <tr>
+
 <td>Biaya Transfer</td>
-<td><input type="number" id="t1" onkeyup="hitung()"></td>
-<td><input type="number" id="t2" onkeyup="hitung()"></td>
-<td><input type="number" id="t3" onkeyup="hitung()"></td>
-<td><input type="number" id="t4" onkeyup="hitung()"></td>
-<td id="totalTransfer">0</td>
+
+<td><input class="tf" oninput="hitung()"></td>
+<td><input class="tf" oninput="hitung()"></td>
+<td><input class="tf" oninput="hitung()"></td>
+<td><input class="tf" oninput="hitung()"></td>
+
+<td class="total" id="totalTF">0</td>
+
 </tr>
 
 </table>
 
+<br>
+
+<button class="save" onclick="simpan()">💾 Simpan</button>
+<button class="print" onclick="window.print()">🖨 Cetak</button>
+
+</div>
+
 <script>
 
-function angka(id){
-    return Number(document.getElementById(id).value)||0;
+function jumlah(kelas){
+
+let total=0;
+
+document.querySelectorAll("."+kelas).forEach(function(i){
+
+let angka=i.value.replace(/,/g,"");
+
+total+=Number(angka)||0;
+
+});
+
+return total;
+
+}
+
+function format(x){
+
+return x.toLocaleString("id-ID");
+
 }
 
 function hitung(){
 
-document.getElementById("totalDepo").innerHTML =
-angka("d1")+angka("d2")+angka("d3")+angka("d4");
+document.getElementById("totalDepo").innerHTML=format(jumlah("depo"));
+document.getElementById("totalCair").innerHTML=format(jumlah("cair"));
+document.getElementById("totalKet").innerHTML=format(jumlah("ket"));
+document.getElementById("totalTF").innerHTML=format(jumlah("tf"));
 
-document.getElementById("totalCair").innerHTML =
-angka("c1")+angka("c2")+angka("c3")+angka("c4");
+}
 
-document.getElementById("totalKetampung").innerHTML =
-angka("k1")+angka("k2")+angka("k3")+angka("k4");
+function simpan(){
 
-document.getElementById("totalTransfer").innerHTML =
-angka("t1")+angka("t2")+angka("t3")+angka("t4");
+localStorage.setItem("laporan",document.querySelector(".container").innerHTML);
+
+alert("Data berhasil disimpan di browser.");
 
 }
 
