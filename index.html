@@ -1,28 +1,34 @@
-<!DOCTYPE html>
-<html lang="id">
+<<!DOCTYPE html>
+<html>
 <head>
-<meta charset="UTF-8">
 <title>Laporan Pencairan</title>
 
 <style>
 body{
-    font-family:Segoe UI,Arial,sans-serif;
-    background:#f4f6f9;
-    margin:30px;
+    font-family:Arial;
+    background:#eef2f7;
+    padding:20px;
 }
 
 .container{
-    max-width:1200px;
+    max-width:1000px;
     margin:auto;
-    background:#fff;
-    padding:20px;
-    border-radius:10px;
-    box-shadow:0 0 10px rgba(0,0,0,.15);
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 5px 20px #ccc;
 }
 
 h2{
     text-align:center;
-    color:#0d6efd;
+    color:#075985;
+}
+
+input{
+    padding:8px;
+    width:95%;
+    border:1px solid #ccc;
+    border-radius:5px;
 }
 
 table{
@@ -32,9 +38,9 @@ table{
 }
 
 th{
-    background:#0d6efd;
+    background:#0284c7;
     color:white;
-    padding:12px;
+    padding:10px;
 }
 
 td{
@@ -43,44 +49,41 @@ td{
     text-align:center;
 }
 
-input{
-    width:100%;
-    border:none;
-    text-align:right;
-    font-size:15px;
-    padding:5px;
-}
-
-input:focus{
-    background:#fff8c4;
-    outline:none;
-}
-
-.total{
-    background:#fff3cd;
-    font-weight:bold;
-}
-
 button{
-    margin-top:20px;
-    padding:10px 20px;
+    padding:10px 18px;
     border:none;
-    border-radius:5px;
+    border-radius:6px;
     cursor:pointer;
-    font-size:15px;
-}
-
-.save{
-    background:#198754;
+    margin:10px 5px;
     color:white;
 }
 
-.print{
-    background:#0d6efd;
-    color:white;
+.btn-hitung{
+    background:#16a34a;
+}
+
+.btn-convert{
+    background:#2563eb;
+}
+
+.btn-copy{
+    background:#9333ea;
+}
+
+.btn-reset{
+    background:#dc2626;
+}
+
+textarea{
+    width:100%;
+    height:400px;
+    margin-top:20px;
+    padding:15px;
+    font-family:monospace;
 }
 
 </style>
+
 </head>
 
 <body>
@@ -88,6 +91,15 @@ button{
 <div class="container">
 
 <h2>LAPORAN PENCAIRAN</h2>
+
+Tanggal :
+<input id="tanggal" value="31 JULI 2026">
+
+<br><br>
+
+Nama :
+<input id="nama" value="PAYDIA PRN MINITOTO">
+
 
 <table>
 
@@ -97,66 +109,65 @@ button{
 <th>Batch 2</th>
 <th>Batch 3</th>
 <th>Batch 4</th>
-<th>Total</th>
 </tr>
+
 
 <tr>
 <td>Nilai Depo</td>
 
-<td><input class="depo" oninput="hitung()"></td>
-<td><input class="depo" oninput="hitung()"></td>
-<td><input class="depo" oninput="hitung()"></td>
-<td><input class="depo" oninput="hitung()"></td>
-
-<td class="total" id="totalDepo">0</td>
+<td><input id="d1"></td>
+<td><input id="d2"></td>
+<td><input id="d3"></td>
+<td><input id="d4"></td>
 
 </tr>
 
-<tr>
 
+<tr>
 <td>Total Cair</td>
 
-<td><input class="cair" oninput="hitung()"></td>
-<td><input class="cair" oninput="hitung()"></td>
-<td><input class="cair" oninput="hitung()"></td>
-<td><input class="cair" oninput="hitung()"></td>
-
-<td class="total" id="totalCair">0</td>
+<td><input id="c1"></td>
+<td><input id="c2"></td>
+<td><input id="c3"></td>
+<td><input id="c4"></td>
 
 </tr>
 
-<tr>
 
+<tr>
 <td>Ketampung</td>
 
-<td><input class="ket" oninput="hitung()"></td>
-<td><input class="ket" oninput="hitung()"></td>
-<td><input class="ket" oninput="hitung()"></td>
-<td><input class="ket" oninput="hitung()"></td>
-
-<td class="total" id="totalKet">0</td>
+<td><input id="k1"></td>
+<td><input id="k2"></td>
+<td><input id="k3"></td>
+<td><input id="k4"></td>
 
 </tr>
+
 
 <tr>
-
 <td>Biaya Transfer</td>
 
-<td><input class="tf" oninput="hitung()"></td>
-<td><input class="tf" oninput="hitung()"></td>
-<td><input class="tf" oninput="hitung()"></td>
-<td><input class="tf" oninput="hitung()"></td>
-
-<td class="total" id="totalTF">0</td>
+<td><input id="t1"></td>
+<td><input id="t2"></td>
+<td><input id="t3"></td>
+<td><input id="t4"></td>
 
 </tr>
+
 
 </table>
 
-<br>
 
-<button class="save" onclick="simpan()">💾 Simpan</button>
-<button class="print" onclick="window.print()">🖨 Cetak</button>
+<button class="btn-convert" onclick="convert()">Convert Laporan</button>
+
+<button class="btn-copy" onclick="copyLaporan()">Copy</button>
+
+<button class="btn-reset" onclick="resetData()">Reset</button>
+
+
+<textarea id="hasil"></textarea>
+
 
 </div>
 
@@ -203,3 +214,190 @@ alert("Data berhasil disimpan di browser.");
 
 </body>
 </html>
+<script>
+
+function angka(id){
+
+    let nilai = document.getElementById(id).value;
+
+    nilai = nilai.replace(/,/g,'');
+
+    return Number(nilai) || 0;
+
+}
+
+
+function formatAngka(angka){
+
+    return angka.toLocaleString("en-US");
+
+}
+
+
+
+function convert(){
+
+    let tanggal = document.getElementById("tanggal").value;
+    let nama = document.getElementById("nama").value;
+
+
+    // BATCH 1
+    let d1 = angka("d1");
+    let c1 = angka("c1");
+    let k1 = angka("k1");
+    let t1 = angka("t1");
+
+
+    // BATCH 2
+    let d2 = angka("d2");
+    let c2 = angka("c2");
+    let k2 = angka("k2");
+    let t2 = angka("t2");
+
+
+    // BATCH 3
+    let d3 = angka("d3");
+    let c3 = angka("c3");
+    let k3 = angka("k3");
+    let t3 = angka("t3");
+
+
+    // BATCH 4
+    let d4 = angka("d4");
+    let c4 = angka("c4");
+    let k4 = angka("k4");
+    let t4 = angka("t4");
+
+
+
+    // TOTAL
+
+    let totalDepo =
+        d1+d2+d3+d4;
+
+    let totalCair =
+        c1+c2+c3+c4;
+
+    let totalKet =
+        k1+k2+k3+k4;
+
+    let totalTransfer =
+        t1+t2+t3+t4;
+
+
+
+let laporan =
+
+`BERIKUT LAPORAN PENCAIRAN ${nama} ${tanggal}
+
+
+(PENCAIRAN BATCH 1)
+NILAI DEPO : ${formatAngka(d1)}
+TOTAL CAIR : ${formatAngka(c1)}
+KETAMPUNG : ${formatAngka(k1)}
+BIAYA TRANSFER : ${formatAngka(t1)}
+
+
+(PENCAIRAN BATCH 2)
+NILAI DEPO : ${formatAngka(d2)}
+TOTAL CAIR : ${formatAngka(c2)}
+KETAMPUNG : ${formatAngka(k2)}
+BIAYA TRANSFER : ${formatAngka(t2)}
+
+
+(PENCAIRAN BATCH 3)
+NILAI DEPO : ${formatAngka(d3)}
+TOTAL CAIR : ${formatAngka(c3)}
+KETAMPUNG : ${formatAngka(k3)}
+BIAYA TRANSFER : ${formatAngka(t3)}
+
+
+(PENCAIRAN BATCH 4)
+NILAI DEPO : ${formatAngka(d4)}
+TOTAL CAIR : ${formatAngka(c4)}
+KETAMPUNG : ${formatAngka(k4)}
+BIAYA TRANSFER : ${formatAngka(t4)}
+
+
+
+======================================
+
+
+TOTAL KESELURUHAN PENCAIRAN ${tanggal}
+
+
+TOTAL NILAI DEPO : ${formatAngka(totalDepo)}
+TOTAL CAIR : ${formatAngka(totalCair)}
+TOTAL KETAMPUNG : ${formatAngka(totalKet)}
+TOTAL BIAYA TRANSFER : ${formatAngka(totalTransfer)}
+
+
+
+BERIKUT TOTAL KESELURUHAN PENCAIRAN HARI INI YA BANG`;
+
+
+
+document.getElementById("hasil").value = laporan;
+
+
+}
+
+
+
+function copyLaporan(){
+
+    let teks = document.getElementById("hasil");
+
+    teks.select();
+
+    navigator.clipboard.writeText(teks.value);
+
+    alert("Laporan berhasil di-copy");
+
+}
+
+
+
+function resetData(){
+
+    document.querySelectorAll("input").forEach(function(i){
+
+        i.value="";
+
+    });
+
+
+    document.getElementById("hasil").value="";
+
+}
+
+// FORMAT INPUT OTOMATIS DENGAN KOMA
+
+document.querySelectorAll("input").forEach(function(input){
+
+    input.addEventListener("input", function(){
+
+        if(this.id=="tanggal" || this.id=="nama"){
+            return;
+        }
+
+
+        let posisi = this.selectionStart;
+
+        let angka = this.value.replace(/,/g,'');
+
+
+        if(!isNaN(angka) && angka!=""){
+
+            this.value = Number(angka).toLocaleString("en-US");
+
+        }
+
+
+        this.setSelectionRange(posisi,posisi);
+
+    });
+
+});
+    
+</script>
