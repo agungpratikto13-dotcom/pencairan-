@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Laporan Pencairan</title>
+    <style>
+        body{
+            font-family:Arial, sans-serif;
+            background:#f4f4f4;
+        }
+
+        table{
+            width:90%;
+            margin:30px auto;
+            border-collapse:collapse;
+            background:white;
+        }
+
+        th,td{
+            border:1px solid black;
+            padding:10px;
+            text-align:center;
+        }
+
+        th{
+            background:#0d6efd;
+            color:white;
+        }
+
+        h2{
+            text-align:center;
+        }
+
+        .total{
+            background:#ffe082;
+            font-weight:bold;
+        }
+    </style>
+</head>
+<body>
+
+<h2>LAPORAN PENCAIRAN</h2>
+
+<table>
+<tr>
+    <th>Keterangan</th>
+    <th>Batch 1</th>
+    <th>Batch 2</th>
+    <th>Batch 3</th>
+    <th>Batch 4</th>
+    <th>Total</th>
+</tr>
+
+<tr>
+    <td>Nilai Depo</td>
+    <td>{{b1_depo}}</td>
+    <td>{{b2_depo}}</td>
+    <td>{{b3_depo}}</td>
+    <td>{{b4_depo}}</td>
+    <td class="total">{{total_depo}}</td>
+</tr>
+
+<tr>
+    <td>Total Cair</td>
+    <td>{{b1_cair}}</td>
+    <td>{{b2_cair}}</td>
+    <td>{{b3_cair}}</td>
+    <td>{{b4_cair}}</td>
+    <td class="total">{{total_cair}}</td>
+</tr>
+
+<tr>
+    <td>Ketampung</td>
+    <td>{{b1_tampung}}</td>
+    <td>{{b2_tampung}}</td>
+    <td>{{b3_tampung}}</td>
+    <td>{{b4_tampung}}</td>
+    <td class="total">{{total_tampung}}</td>
+</tr>
+
+<tr>
+    <td>Biaya Transfer</td>
+    <td>{{b1_tf}}</td>
+    <td>{{b2_tf}}</td>
+    <td>{{b3_tf}}</td>
+    <td>{{b4_tf}}</td>
+    <td class="total">{{total_tf}}</td>
+</tr>
+
+</table>
+
+</body>
+</html>
