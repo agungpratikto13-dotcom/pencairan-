@@ -196,7 +196,11 @@ button:hover{
     background:#16a34a;
 
 }
-    
+    .btn-muat{
+
+    background:#0891b2;
+
+}
 textarea{
 
     width:100%;
@@ -504,25 +508,40 @@ document.getElementById("hasil").value = laporan;
 
 
 // simpan riwayat
-simpanRiwayat(laporan);
+simpanRiwayat(laporan,{
+    nama:nama,
+    tanggal:tanggal,
+
+    d1,d2,d3,d4,
+    c1,c2,c3,c4,
+    k1,k2,k3,k4,
+    t1,t2,t3,t4
+});
 
 }
 
-function simpanRiwayat(laporan){
+function simpanRiwayat(laporan,dataInput){
 
     let data = JSON.parse(localStorage.getItem("riwayat")) || [];
 
-    data.unshift({
-        waktu: new Date().toLocaleString("id-ID"),
-        nama: document.getElementById("nama").value,
-        isi: laporan
-    });
+   data.unshift({
 
-    if(data.length > 20){
-        data.pop();
-    }
+    waktu:new Date().toLocaleString("id-ID"),
 
-    localStorage.setItem("riwayat", JSON.stringify(data));
+    nama:dataInput.nama,
+
+    isi:laporan,
+
+    data:dataInput
+
+});
+
+
+    localStorage.setItem(
+        "riwayat",
+        JSON.stringify(data)
+    );
+
 
     tampilRiwayat();
 
@@ -552,6 +571,9 @@ function tampilRiwayat(){
         Lihat
         </button>
 
+        <button class="btn-muat" onclick="muatRiwayat(${index})">
+         Muat Data
+        </button>
 
         <button class="btn-reset" onclick="hapusRiwayat(${index})">
         Hapus
@@ -588,6 +610,50 @@ function lihatRiwayat(index){
 
 }
 
+function muatRiwayat(index){
+
+    let data = JSON.parse(localStorage.getItem("riwayat"));
+
+    let item = data[index];
+
+    let d = item.data;
+
+
+    document.getElementById("nama").value = d.nama;
+    document.getElementById("tanggal").value = d.tanggal;
+
+
+    document.getElementById("d1").value = formatAngka(d.d1);
+    document.getElementById("d2").value = formatAngka(d.d2);
+    document.getElementById("d3").value = formatAngka(d.d3);
+    document.getElementById("d4").value = formatAngka(d.d4);
+
+
+    document.getElementById("c1").value = formatAngka(d.c1);
+    document.getElementById("c2").value = formatAngka(d.c2);
+    document.getElementById("c3").value = formatAngka(d.c3);
+    document.getElementById("c4").value = formatAngka(d.c4);
+
+
+    document.getElementById("k1").value = formatAngka(d.k1);
+    document.getElementById("k2").value = formatAngka(d.k2);
+    document.getElementById("k3").value = formatAngka(d.k3);
+    document.getElementById("k4").value = formatAngka(d.k4);
+
+
+    document.getElementById("t1").value = formatAngka(d.t1);
+    document.getElementById("t2").value = formatAngka(d.t2);
+    document.getElementById("t3").value = formatAngka(d.t3);
+    document.getElementById("t4").value = formatAngka(d.t4);
+
+
+    document.getElementById("hasil").value = item.isi;
+
+
+    alert("Data laporan berhasil dimuat kembali");
+
+}
+    
 function hapusRiwayat(index){
 
     let data = JSON.parse(localStorage.getItem("riwayat"));
