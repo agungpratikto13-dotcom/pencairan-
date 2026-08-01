@@ -191,6 +191,12 @@ button:hover{
 
 }
 
+.btn-lihat{
+
+    background:#16a34a;
+
+}
+    
 textarea{
 
     width:100%;
@@ -490,12 +496,14 @@ TOTAL CAIR : ${formatAngka(totalCair)}
 TOTAL KETAMPUNG : ${formatAngka(totalKet)}
 TOTAL BIAYA TRANSFER : ${formatAngka(totalTransfer)}
 
-BERIKUT TOTAL KESELURUHAN PENCAIRAN HARI INI YA BANG
+BERIKUT TOTAL KESELURUHAN PENCAIRAN HARI INI YA BANG`;
 
 
+// tampilkan hasil
+document.getElementById("hasil").value = laporan;
 
-window.onload = function(){
 
+// simpan riwayat
 simpanRiwayat(laporan);
 
 }
@@ -520,6 +528,47 @@ function simpanRiwayat(laporan){
 
 }
 
+
+function tampilRiwayat(){
+
+    let data = JSON.parse(localStorage.getItem("riwayat")) || [];
+
+    let html="";
+
+
+    data.forEach(function(item,index){
+
+        html += `
+
+        <div class="history-card">
+
+        <b>${item.waktu}</b><br>
+
+        ${item.nama}
+
+        <br><br>
+
+       <button class="btn-lihat" onclick="lihatRiwayat(${index})">
+        Lihat
+        </button>
+
+
+        <button class="btn-reset" onclick="hapusRiwayat(${index})">
+        Hapus
+        </button>
+
+
+        </div>
+
+        `;
+
+    });
+
+
+    document.getElementById("riwayat").innerHTML=html;
+
+}
+    
 function copyLaporan(){
 
     let teks = document.getElementById("hasil");
