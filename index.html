@@ -217,6 +217,20 @@ textarea{
 
 }
 
+    .history-card{
+
+    background:#f8fafc;
+
+    padding:15px;
+
+    border-radius:10px;
+
+    margin-top:12px;
+
+    border-left:5px solid #2563eb;
+
+}
+    
 footer{
 
     text-align:center;
@@ -315,6 +329,10 @@ Nama :
 
 <textarea id="hasil"></textarea>
 
+<h3>Riwayat Laporan</h3>
+
+<div id="riwayat"></div>
+    
 <footer>
     By Agung
 </footer>
@@ -439,13 +457,11 @@ let laporan =
 
 `BERIKUT LAPORAN PENCAIRAN ${nama} ${tanggal}
 
-
 (PENCAIRAN BATCH 1)
 NILAI DEPO : ${formatAngka(d1)}
 TOTAL CAIR : ${formatAngka(c1)}
 KETAMPUNG : ${formatAngka(k1)}
 BIAYA TRANSFER : ${formatAngka(t1)}
-
 
 (PENCAIRAN BATCH 2)
 NILAI DEPO : ${formatAngka(d2)}
@@ -453,13 +469,11 @@ TOTAL CAIR : ${formatAngka(c2)}
 KETAMPUNG : ${formatAngka(k2)}
 BIAYA TRANSFER : ${formatAngka(t2)}
 
-
 (PENCAIRAN BATCH 3)
 NILAI DEPO : ${formatAngka(d3)}
 TOTAL CAIR : ${formatAngka(c3)}
 KETAMPUNG : ${formatAngka(k3)}
 BIAYA TRANSFER : ${formatAngka(t3)}
-
 
 (PENCAIRAN BATCH 4)
 NILAI DEPO : ${formatAngka(d4)}
@@ -467,31 +481,44 @@ TOTAL CAIR : ${formatAngka(c4)}
 KETAMPUNG : ${formatAngka(k4)}
 BIAYA TRANSFER : ${formatAngka(t4)}
 
-
-
 ======================================
 
-
 TOTAL KESELURUHAN PENCAIRAN ${tanggal}
-
 
 TOTAL NILAI DEPO : ${formatAngka(totalDepo)}
 TOTAL CAIR : ${formatAngka(totalCair)}
 TOTAL KETAMPUNG : ${formatAngka(totalKet)}
 TOTAL BIAYA TRANSFER : ${formatAngka(totalTransfer)}
 
-
-
-BERIKUT TOTAL KESELURUHAN PENCAIRAN HARI INI YA BANG`;
+BERIKUT TOTAL KESELURUHAN PENCAIRAN HARI INI YA BANG
 
 
 
-document.getElementById("hasil").value = laporan;
+window.onload = function(){
 
+simpanRiwayat(laporan);
 
 }
 
+function simpanRiwayat(laporan){
 
+    let data = JSON.parse(localStorage.getItem("riwayat")) || [];
+
+    data.unshift({
+        waktu: new Date().toLocaleString("id-ID"),
+        nama: document.getElementById("nama").value,
+        isi: laporan
+    });
+
+    if(data.length > 20){
+        data.pop();
+    }
+
+    localStorage.setItem("riwayat", JSON.stringify(data));
+
+    tampilRiwayat();
+
+}
 
 function copyLaporan(){
 
@@ -504,7 +531,25 @@ function copyLaporan(){
     alert("Laporan berhasil di-copy");
 
 }
+function lihatRiwayat(index){
 
+    let data = JSON.parse(localStorage.getItem("riwayat"));
+
+    document.getElementById("hasil").value = data[index].isi;
+
+}
+
+function hapusRiwayat(index){
+
+    let data = JSON.parse(localStorage.getItem("riwayat"));
+
+    data.splice(index,1);
+
+    localStorage.setItem("riwayat",JSON.stringify(data));
+
+    tampilRiwayat();
+
+}
 
 
 function resetData(){
@@ -548,7 +593,13 @@ document.querySelectorAll("input").forEach(function(input){
     });
 
 });
-    
+
+    window.onload = function(){
+
+    tampilRiwayat();
+
+}
+
 </script>
 
 </body>
