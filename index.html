@@ -564,13 +564,6 @@ document.getElementById("totalTF").innerHTML=format(jumlah("tf"));
 
 }
 
-function simpan(){
-
-localStorage.setItem("laporan",document.querySelector(".container").innerHTML);
-
-alert("Data berhasil disimpan di browser.");
-
-}
 
 </script>
 
@@ -734,7 +727,19 @@ function simpanRiwayat(laporan,dataInput){
 
 function tampilRiwayat(){
 
-    let data = JSON.parse(localStorage.getItem("riwayat")) || [];
+    let data = [];
+
+try{
+
+    data = JSON.parse(localStorage.getItem("riwayat")) || [];
+
+}catch(e){
+
+    console.log("Data riwayat rusak, reset");
+
+    localStorage.removeItem("riwayat");
+
+}
 
     let html="";
 
@@ -840,11 +845,18 @@ function muatRiwayat(index){
     
 function hapusRiwayat(index){
 
-    let data = JSON.parse(localStorage.getItem("riwayat"));
+    let data =
+    JSON.parse(localStorage.getItem("riwayat")) || [];
+
 
     data.splice(index,1);
 
-    localStorage.setItem("riwayat",JSON.stringify(data));
+
+    localStorage.setItem(
+        "riwayat",
+        JSON.stringify(data)
+    );
+
 
     tampilRiwayat();
 
@@ -893,7 +905,11 @@ document.querySelectorAll("input").forEach(function(input){
 
 });
 
-    window.onload = function(){
+  window.onload = function(){
+
+    console.log(
+        localStorage.getItem("riwayat")
+    );
 
     tampilRiwayat();
 
