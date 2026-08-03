@@ -36,27 +36,6 @@ body{
     position:relative;
 }
 
-    body{
-    margin:0;
-    min-height:100vh;
-
-    font-family:'Poppins',sans-serif;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    overflow-x:hidden;
-
-    background:
-    linear-gradient(135deg,
-    #0f172a 0%,
-    #1e3a8a 45%,
-    #2563eb 100%);
-
-    position:relative;
-}
-
 /* ===== Tambahkan di sini ===== */
 
 body::before{
@@ -176,24 +155,17 @@ border-bottom:1px solid #e2e8f0;
 
 .icon{
 
-width:90px;
+width:180px;
 
-height:90px;
+height:auto;
 
-border-radius:20px;
+background:transparent;
 
-background:white;
+box-shadow:none;
 
-display:flex;
+border-radius:0;
 
-align-items:center;
-
-justify-content:center;
-
-overflow:hidden;
-
-box-shadow:
-0 10px 25px rgba(0,0,0,.15);
+margin-bottom:15px;
 
 }
 
@@ -202,9 +174,7 @@ box-shadow:
 
 width:100%;
 
-height:100%;
-
-object-fit:contain;
+height:auto;
 
 }
     
@@ -226,9 +196,9 @@ input{
 
     padding:12px 15px;
 
-    background:rgba(255,255,255,.25);
+    background:rgba(255,255,255,.12);
 
-    border:1px solid rgba(255,255,255,.35);
+    border:1px solid rgba(255,255,255,.18);
 
     border-radius:10px;
 
@@ -309,7 +279,7 @@ background:rgba(255,255,255,.08);
 }
 tr:nth-child(even){
 
-    background:#f8fafc;
+    background:rgba(255,255,255,.05);
 
 }
 
@@ -570,7 +540,6 @@ Nama :
     
 <script>
 
-function jumlah(kelas){
 
 let total=0;
 
@@ -590,7 +559,6 @@ function format(x){
     return x.toLocaleString("en-US");
 }
 
-function hitung(){
 
 document.getElementById("totalDepo").innerHTML=format(jumlah("depo"));
 document.getElementById("totalCair").innerHTML=format(jumlah("cair"));
