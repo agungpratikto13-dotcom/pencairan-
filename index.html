@@ -242,6 +242,8 @@ position:relative;
 
 overflow:hidden;
 
+clip-path: inset(0 round 20px);
+    
 box-shadow:
 0 20px 40px rgba(0,0,0,.25),
 inset 0 0 30px rgba(255,255,255,.15);
@@ -251,7 +253,7 @@ inset 0 0 30px rgba(255,255,255,.15);
 
 /* efek kilau tabel */
 
-table::before{
+table::after{
 
 content:"";
 
@@ -259,23 +261,27 @@ position:absolute;
 
 top:0;
 
-left:-100%;
+left:-120%;
 
-width:60%;
+width:70%;
 
 height:100%;
+
 
 background:
 linear-gradient(
 120deg,
 transparent,
-rgba(255,255,255,.6),
+rgba(255,255,255,.55),
 transparent
 );
 
+
 transform:skewX(-25deg);
 
-animation:kilau 4s infinite;
+animation:kilau 5s infinite;
+
+pointer-events:none;
 
 }
 
@@ -284,19 +290,21 @@ animation:kilau 4s infinite;
 
 0%{
 
-left:-100%;
+left:-120%;
 
 }
 
-50%{
 
-left:150%;
+40%{
+
+left:130%;
 
 }
+
 
 100%{
 
-left:150%;
+left:130%;
 
 }
 
