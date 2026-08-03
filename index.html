@@ -230,14 +230,13 @@ margin-top:25px;
 
 border-collapse:separate;
 
-border-spacing:6px;
+border-spacing:0;
 
+background:rgba(255,255,255,.08);
 
-background:rgba(255,255,255,.12);
+backdrop-filter:blur(15px);
 
-backdrop-filter:blur(12px);
-
-border-radius:18px;
+border-radius:20px;
 
 overflow:hidden;
 
@@ -248,9 +247,14 @@ box-shadow:
 
 th{
 
-background:rgba(255,255,255,.35);
+background:
+linear-gradient(
+135deg,
+rgba(255,255,255,.35),
+rgba(255,255,255,.15)
+);
 
-color:#000;
+color:#111827;
 
 padding:16px;
 
@@ -260,10 +264,9 @@ font-weight:800;
 
 text-align:center;
 
-border:2px solid rgba(0,0,0,.25);
+border-bottom:1px solid rgba(255,255,255,.6);
 
-box-shadow:
-inset 0 0 10px rgba(255,255,255,.4);
+border-right:1px solid rgba(255,255,255,.4);
 
 }
 
@@ -273,11 +276,13 @@ padding:14px;
 
 text-align:center;
 
-background:rgba(255,255,255,.08);
+background:rgba(255,255,255,.05);
 
-color:#000;
+color:#111827;
 
-border:1px solid rgba(0,0,0,.25);
+border-bottom:1px solid rgba(255,255,255,.35);
+
+border-right:1px solid rgba(255,255,255,.25);
 
 }
 
@@ -293,6 +298,11 @@ font-weight:700;
 
     transition:.25s;
 
+tr:nth-child(even){
+
+background:#f8fafc;
+
+}
 }
 
 tbody tr:hover{
