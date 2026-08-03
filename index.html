@@ -565,16 +565,6 @@ button:hover{
 
 }
 
-.btn-lihat{
-
-    background:#16a34a;
-
-}
-    .btn-muat{
-
-    background:#0891b2;
-
-}
 textarea{
 
 background:#0b1120;
@@ -596,34 +586,6 @@ padding:20px;
 box-shadow:
 
 inset 0 0 20px rgba(0,0,0,.4);
-
-}
-
-.history-card{
-
-background:white;
-
-padding:18px;
-
-border-radius:18px;
-
-margin-top:15px;
-
-border:none;
-
-box-shadow:
-
-0 10px 25px rgba(0,0,0,.08);
-
-transition:.25s;
-
-}
-
-    .history-card:hover{
-
-transform:
-
-translateY(-3px);
 
 }
 
@@ -759,10 +721,6 @@ Nama :
 
 
 <textarea id="hasil"></textarea>
-
-<h3>Riwayat Laporan</h3>
-
-<div id="riwayat"></div>
     
 <footer>
     By Agung
@@ -772,41 +730,6 @@ Nama :
     
 <script>
 
-
-function jumlah(kelas){
-
-let total=0;
-
-document.querySelectorAll("."+kelas).forEach(function(i){
-
-let angka=i.value.replace(/,/g,"");
-
-total+=Number(angka)||0;
-
-});
-
-return total;
-
-}
-
-function format(x){
-    return x.toLocaleString("en-US");
-}
-
-
-document.getElementById("totalDepo").innerHTML=format(jumlah("depo"));
-document.getElementById("totalCair").innerHTML=format(jumlah("cair"));
-document.getElementById("totalKet").innerHTML=format(jumlah("ket"));
-document.getElementById("totalTF").innerHTML=format(jumlah("tf"));
-
-}
-
-
-</script>
-
-<script>
-
-  
 function angka(id){
 
     let nilai = document.getElementById(id).value;
@@ -921,102 +844,9 @@ BERIKUT TOTAL KESELURUHAN PENCAIRAN HARI INI YA BANG`;
 document.getElementById("hasil").value = laporan;
 
 
-// simpan riwayat
-simpanRiwayat(laporan,{
-    nama:nama,
-    tanggal:tanggal,
-
-    d1,d2,d3,d4,
-    c1,c2,c3,c4,
-    k1,k2,k3,k4,
-    t1,t2,t3,t4
-});
-
 }
 
-function simpanRiwayat(laporan,dataInput){
-
-    let data = JSON.parse(localStorage.getItem("riwayat")) || [];
-
-   data.unshift({
-
-    waktu:new Date().toLocaleString("id-ID"),
-
-    nama:dataInput.nama,
-
-    isi:laporan,
-
-    data:dataInput
-
-});
-
-
-    localStorage.setItem(
-        "riwayat",
-        JSON.stringify(data)
-    );
-
-
-    tampilRiwayat();
-
-}
-
-
-function tampilRiwayat(){
-
-    let data = [];
-
-try{
-
-    data = JSON.parse(localStorage.getItem("riwayat")) || [];
-
-}catch(e){
-
-    console.log("Data riwayat rusak, reset");
-
-    localStorage.removeItem("riwayat");
-
-}
-
-    let html="";
-
-
-    data.forEach(function(item,index){
-
-        html += `
-
-        <div class="history-card">
-
-        <b>${item.waktu}</b><br>
-
-        ${item.nama}
-
-        <br><br>
-
-       <button class="btn-lihat" onclick="lihatRiwayat(${index})">
-        Lihat
-        </button>
-
-        <button class="btn-muat" onclick="muatRiwayat(${index})">
-         Muat Data
-        </button>
-
-        <button class="btn-reset" onclick="hapusRiwayat(${index})">
-        Hapus
-        </button>
-
-
-        </div>
-
-        `;
-
-    });
-
-
-    document.getElementById("riwayat").innerHTML=html;
-
-}
-    
+   
 function copyLaporan(){
 
     let teks = document.getElementById("hasil");
@@ -1028,77 +858,6 @@ function copyLaporan(){
     alert("Laporan berhasil di-copy");
 
 }
-function lihatRiwayat(index){
-
-    let data = JSON.parse(localStorage.getItem("riwayat"));
-
-    document.getElementById("hasil").value = data[index].isi;
-
-}
-
-function muatRiwayat(index){
-
-    let data = JSON.parse(localStorage.getItem("riwayat"));
-
-    let item = data[index];
-
-    let d = item.data;
-
-
-    document.getElementById("nama").value = d.nama;
-    document.getElementById("tanggal").value = d.tanggal;
-
-
-    document.getElementById("d1").value = formatAngka(d.d1);
-    document.getElementById("d2").value = formatAngka(d.d2);
-    document.getElementById("d3").value = formatAngka(d.d3);
-    document.getElementById("d4").value = formatAngka(d.d4);
-
-
-    document.getElementById("c1").value = formatAngka(d.c1);
-    document.getElementById("c2").value = formatAngka(d.c2);
-    document.getElementById("c3").value = formatAngka(d.c3);
-    document.getElementById("c4").value = formatAngka(d.c4);
-
-
-    document.getElementById("k1").value = formatAngka(d.k1);
-    document.getElementById("k2").value = formatAngka(d.k2);
-    document.getElementById("k3").value = formatAngka(d.k3);
-    document.getElementById("k4").value = formatAngka(d.k4);
-
-
-    document.getElementById("t1").value = formatAngka(d.t1);
-    document.getElementById("t2").value = formatAngka(d.t2);
-    document.getElementById("t3").value = formatAngka(d.t3);
-    document.getElementById("t4").value = formatAngka(d.t4);
-
-
-    document.getElementById("hasil").value = item.isi;
-
-
-    alert("Data laporan berhasil dimuat kembali");
-
-}
-    
-function hapusRiwayat(index){
-
-    let data =
-    JSON.parse(localStorage.getItem("riwayat")) || [];
-
-
-    data.splice(index,1);
-
-
-    localStorage.setItem(
-        "riwayat",
-        JSON.stringify(data)
-    );
-
-
-    tampilRiwayat();
-
-}
-
 
 function resetData(){
 
@@ -1177,8 +936,6 @@ document.querySelectorAll("input").forEach(function(input){
 window.onload = function(){
 
     tanggalHariIni();
-
-    tampilRiwayat();
 
 }
 
