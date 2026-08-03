@@ -891,7 +891,18 @@ BERIKUT TOTAL KESELURUHAN PENCAIRAN HARI INI YA BANG`;
 
 }
 
-   
+if(jumlahBatch == 0){
+
+alert("Silahkan isi minimal 1 Batch terlebih dahulu");
+return;
+
+}
+    
+   // tampilkan hasil
+document.getElementById("hasil").value = laporan;
+
+}
+    
 function copyLaporan(){
 
     let teks = document.getElementById("hasil");
