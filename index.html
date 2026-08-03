@@ -685,7 +685,7 @@ footer{
 </div>
 
 Tanggal :
-<input id="tanggal" value="31 JULI 2026">
+<input id="tanggal">
 
 <br><br>
 
@@ -1142,11 +1142,41 @@ document.querySelectorAll("input").forEach(function(input){
 
 });
 
-  window.onload = function(){
+ function tanggalHariIni(){
 
-    console.log(
-        localStorage.getItem("riwayat")
-    );
+    let hari = new Date();
+
+    let tanggal = hari.getDate();
+
+    let bulan = [
+        "JANUARI",
+        "FEBRUARI",
+        "MARET",
+        "APRIL",
+        "MEI",
+        "JUNI",
+        "JULI",
+        "AGUSTUS",
+        "SEPTEMBER",
+        "OKTOBER",
+        "NOVEMBER",
+        "DESEMBER"
+    ];
+
+    let namaBulan = bulan[hari.getMonth()];
+
+    let tahun = hari.getFullYear();
+
+
+    document.getElementById("tanggal").value =
+    tanggal + " " + namaBulan + " " + tahun;
+
+}
+
+
+window.onload = function(){
+
+    tanggalHariIni();
 
     tampilRiwayat();
 
