@@ -226,15 +226,21 @@ input{
 
     padding:12px 15px;
 
-    border:1px solid #dbeafe;
+    background:rgba(255,255,255,.25);
+
+    border:1px solid rgba(255,255,255,.35);
 
     border-radius:10px;
+
+    color:#1e293b;
 
     outline:none;
 
     transition:.3s;
 
     font-size:15px;
+
+    backdrop-filter:blur(8px);
 
 }
 
@@ -248,32 +254,45 @@ input:focus{
 
 table{
 
+width:100%;
+
 margin-top:25px;
 
-background:white;
+border-collapse:collapse;
 
-border-radius:18px;
+background:transparent;
+
+border:1px solid rgba(255,255,255,.25);
+
+backdrop-filter:blur(8px);
 
 overflow:hidden;
-
-box-shadow:0 10px 30px rgba(0,0,0,.08);
 
 }
 
 th{
-    background:#f1f5f9;
-    color:#1e293b;
-    font-weight:600;
-    border-bottom:2px solid #2563eb;
+
+background:rgba(255,255,255,.12);
+
+color:#1e293b;
+
+padding:15px;
+
+font-weight:600;
+
+border:1px solid rgba(255,255,255,.20);
+
 }
 
 td{
 
-    padding:12px;
+padding:12px;
 
-    border-bottom:1px solid #e2e8f0;
+text-align:center;
 
-    text-align:center;
+background:transparent;
+
+border:1px solid rgba(255,255,255,.15);
 
 }
 
@@ -285,7 +304,7 @@ td{
 
 tbody tr:hover{
 
-    background:#eff6ff;
+background:rgba(255,255,255,.08);
 
 }
 tr:nth-child(even){
