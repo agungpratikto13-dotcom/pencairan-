@@ -800,34 +800,84 @@ function convert(){
 
 
 
-let laporan =
-
+let laporan = 
 `BERIKUT LAPORAN PENCAIRAN ${nama} ${tanggal}
 
-(PENCAIRAN BATCH 1)
+`;
+
+
+if(d1 || c1 || k1 || t1){
+
+laporan +=
+`(PENCAIRAN BATCH 1)
+
 NILAI DEPO : ${formatAngka(d1)}
 TOTAL CAIR : ${formatAngka(c1)}
 KETAMPUNG : ${formatAngka(k1)}
 BIAYA TRANSFER : ${formatAngka(t1)}
 
-(PENCAIRAN BATCH 2)
+`;
+
+}
+
+
+if(d2 || c2 || k2 || t2){
+
+laporan +=
+`(PENCAIRAN BATCH 2)
+
 NILAI DEPO : ${formatAngka(d2)}
 TOTAL CAIR : ${formatAngka(c2)}
 KETAMPUNG : ${formatAngka(k2)}
 BIAYA TRANSFER : ${formatAngka(t2)}
 
-(PENCAIRAN BATCH 3)
+`;
+
+}
+
+
+if(d3 || c3 || k3 || t3){
+
+laporan +=
+`(PENCAIRAN BATCH 3)
+
 NILAI DEPO : ${formatAngka(d3)}
 TOTAL CAIR : ${formatAngka(c3)}
 KETAMPUNG : ${formatAngka(k3)}
 BIAYA TRANSFER : ${formatAngka(t3)}
 
-(PENCAIRAN BATCH 4)
+`;
+
+}
+
+
+if(d4 || c4 || k4 || t4){
+
+laporan +=
+`(PENCAIRAN BATCH 4)
+
 NILAI DEPO : ${formatAngka(d4)}
 TOTAL CAIR : ${formatAngka(c4)}
 KETAMPUNG : ${formatAngka(k4)}
 BIAYA TRANSFER : ${formatAngka(t4)}
 
+`;
+
+}
+
+
+let jumlahBatch = 0;
+
+if(d1 || c1 || k1 || t1) jumlahBatch++;
+if(d2 || c2 || k2 || t2) jumlahBatch++;
+if(d3 || c3 || k3 || t3) jumlahBatch++;
+if(d4 || c4 || k4 || t4) jumlahBatch++;
+
+
+if(jumlahBatch > 1){
+
+laporan +=
+`
 ======================================
 
 TOTAL KESELURUHAN PENCAIRAN ${tanggal}
@@ -838,11 +888,6 @@ TOTAL KETAMPUNG : ${formatAngka(totalKet)}
 TOTAL BIAYA TRANSFER : ${formatAngka(totalTransfer)}
 
 BERIKUT TOTAL KESELURUHAN PENCAIRAN HARI INI YA BANG`;
-
-
-// tampilkan hasil
-document.getElementById("hasil").value = laporan;
-
 
 }
 
